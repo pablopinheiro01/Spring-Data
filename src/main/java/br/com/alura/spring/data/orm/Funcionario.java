@@ -1,6 +1,7 @@
 package br.com.alura.spring.data.orm;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class Funcionario {
 	
 	private BigDecimal salario;
 	
-	private LocalDateTime dataContratacao;
+	private LocalDate dataContratacao;
 	
 	@ManyToOne
 	@JoinColumn(name = "cargo_id", nullable = false)
@@ -44,14 +45,6 @@ public class Funcionario {
 		joinColumns = {@JoinColumn(name="fk_funcionarios")}, 
 		inverseJoinColumns = {@JoinColumn(name = "fk_unidade")} )
 	private List<UnidadeDeTrabalho> unidadeDeTrabalho;
-	
-	public Cargo getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(Cargo cargo) {
-		this.cargo = cargo;
-	}
 
 	public Integer getId() {
 		return id;
@@ -85,14 +78,33 @@ public class Funcionario {
 		this.salario = salario;
 	}
 
-	public LocalDateTime getDataContratacao() {
+	public Cargo getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
+	}
+
+	public List<UnidadeDeTrabalho> getUnidadeDeTrabalho() {
+		return unidadeDeTrabalho;
+	}
+
+	public void setUnidadeDeTrabalho(List<UnidadeDeTrabalho> unidadeDeTrabalho) {
+		this.unidadeDeTrabalho = unidadeDeTrabalho;
+	}
+
+	public LocalDate getDataContratacao() {
 		return dataContratacao;
 	}
 
-	public void setDataContratacao(LocalDateTime dataContratacao) {
+	public void setDataContratacao(LocalDate dataContratacao) {
 		this.dataContratacao = dataContratacao;
 	}
 	
-	
-	
+	@Override
+	public String toString() {
+		return "Nome: "+this.nome+" salario: "+this.salario+" Cargo: "+this.cargo.getDescricao() 
+		+ " Data de contratacao: "+this.dataContratacao.getDayOfMonth()+"/"+this.dataContratacao.getMonthValue()+"/"+this.dataContratacao.getYear();
+	}
 }
