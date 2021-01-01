@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import br.com.alura.spring.data.service.CrudCargoService;
 import br.com.alura.spring.data.service.CrudFuncionarioService;
 import br.com.alura.spring.data.service.CrudUnidadeDeTrabalhoService;
+import br.com.alura.spring.data.service.RelatorioFuncionarioDinamico;
 import br.com.alura.spring.data.service.RelatoriosService;
 
 @SpringBootApplication
@@ -20,14 +21,16 @@ public class SpringDataApplication implements CommandLineRunner {
 	private final CrudFuncionarioService funcionarioService;
 	private final CrudUnidadeDeTrabalhoService unidadeService;
 	private final RelatoriosService relatorioService;
+	private final RelatorioFuncionarioDinamico dinamico;
 	
 	//injeto a dependencia do obeto repository
 	public SpringDataApplication(CrudCargoService cargoService, CrudFuncionarioService funcionarioService,
-			CrudUnidadeDeTrabalhoService unidadeService, RelatoriosService relatorioService) {
+			CrudUnidadeDeTrabalhoService unidadeService, RelatoriosService relatorioService, RelatorioFuncionarioDinamico dinamico) {
 		this.cargoService = cargoService;
 		this.funcionarioService = funcionarioService;
 		this.unidadeService = unidadeService;
 		this.relatorioService = relatorioService;
+		this.dinamico = dinamico;
 	}
 
 	public static void main(String[] args) {
@@ -47,6 +50,7 @@ public class SpringDataApplication implements CommandLineRunner {
 			System.out.println(" 2 - Funcionario ");
 			System.out.println(" 3 - Unidade de Trabalho");
 			System.out.println(" 4 - Relatorio");
+			System.out.println(" 5 - Relatorio Dinamico");
 			
 			int action = scanner.nextInt();
 			
@@ -62,6 +66,9 @@ public class SpringDataApplication implements CommandLineRunner {
 				break;
 			case 4:
 				relatorioService.inicial(scanner);
+				break;
+			case 5: 
+				dinamico.inicial(scanner);
 				break;
 			default:
 				break;
